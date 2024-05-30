@@ -6,6 +6,8 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use 'neovim/nvim-lspconfig'
+  use 'simrat39/rust-tools.nvim'
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
 	  -- or                            , branch = '0.1.x',
@@ -32,7 +34,14 @@ return require('packer').startup(function(use)
       requires = {
           -- LSP Support
           {'neovim/nvim-lspconfig'},
-          {'williamboman/mason.nvim'},
+          {
+              'williamboman/mason.nvim',
+              opts = {
+                ensure_installed = {
+                    "rust-analyzer"
+                }
+             }
+      },
           {'williamboman/mason-lspconfig.nvim'},
 
           -- Autocompletion
@@ -42,10 +51,15 @@ return require('packer').startup(function(use)
           {'saadparwaiz1/cmp_luasnip'},
           {'hrsh7th/cmp-nvim-lsp'},
           {'hrsh7th/cmp-nvim-lua'},
+          {'hrsh7th/cmp-nvim-lsp-signature-help'},
+          
 
           -- Snippets
           {'L3MON4D3/LuaSnip'},
           {'rafamadriz/friendly-snippets'},
+          {'hrsh7th/cmp-vsnip'},
+          {'hrsh7th/vim-vsnip'}
+
       }
   }
   

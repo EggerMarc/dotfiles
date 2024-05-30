@@ -46,4 +46,4 @@ vim.diagnostic.config({
     virtual_text = true
 })
 
-
+return lsp
