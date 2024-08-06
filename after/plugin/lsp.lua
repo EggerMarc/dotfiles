@@ -18,13 +18,14 @@ cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
+    suggest_lsp_servers = true,
     sign_icons = {
         error = 'E',
         warn = 'W',
         hint = 'H',
         info = 'I'
     }
+
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -47,5 +48,7 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
+
+vim.diagnostic.open_float()
 
 return lsp
