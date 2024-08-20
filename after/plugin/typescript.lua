@@ -1,4 +1,5 @@
 local lsp_zero = require('lsp-zero')
+local lspconfig = require("lspconfig")
 
 local on_attach = lsp_zero.on_attach(
     function(client, bufnr)
@@ -6,8 +7,6 @@ local on_attach = lsp_zero.on_attach(
     end)
 
 local capabilities = lsp_zero.capabilities
-local lspconfig = require("lspconfig")
-local util = require "lspconfig/util"
 
 lspconfig.tsserver.setup({
     on_attach = on_attach,
@@ -19,3 +18,14 @@ lspconfig.tsserver.setup({
         }
     }
 })
+
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern("package.json"),
+  single_file_support = false
+}
