@@ -42,3 +42,6 @@ lspconfig.julials.setup({
 lspconfig.r_language_server.setup({
     filetypes = { "r" }
 })
+
+-- JSON require jsonls / json-lsp
+lspconfig.jsonls.setup({})
