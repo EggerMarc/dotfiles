@@ -72,4 +72,11 @@ return require('packer').startup(function(use)
     use("github/copilot.vim")
     use("eandrju/cellular-automaton.nvim")
     use("laytan/cloak.nvim")
+    use("brenoprata10/nvim-highlight-colors")
+    use('jose-elias-alvarez/null-ls.nvim')
+    use('MunifTanjim/prettier.nvim')
+    use {
+    'Vonr/align.nvim',
+    branch = "v2",
+    }
 end)
