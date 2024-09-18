@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/Users/marcegger/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["coc.nvim"] = {
+    loaded = true,
+    path = "/Users/marcegger/.local/share/nvim/site/pack/packer/start/coc.nvim",
+    url = "https://github.com/neoclide/coc.nvim"
+  },
   ["copilot.vim"] = {
     loaded = true,
     path = "/Users/marcegger/.local/share/nvim/site/pack/packer/start/copilot.vim",
