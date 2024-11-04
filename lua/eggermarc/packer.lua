@@ -40,8 +40,11 @@ return require('packer').startup(function(use)
                 opts = {
                     ensure_installed = {
                         "rust-analyzer",
-                        "tsserver",
-                        "gopls"
+                        "gopls",
+                        "denols",              -- configure to support Deno
+                        "typescript-language-server",
+                        "eslint_lsp",
+                        "prettier"
                     }
                 }
             },
@@ -65,7 +68,7 @@ return require('packer').startup(function(use)
 
         }
     }
-    use {'neoclide/coc.nvim', branch = 'release'}
+    use { 'neoclide/coc.nvim', branch = 'release' }
 
     use("theprimeagen/refactoring.nvim")
     use('theprimeagen/vim-be-good')
@@ -77,7 +80,7 @@ return require('packer').startup(function(use)
     use('jose-elias-alvarez/null-ls.nvim')
     use('MunifTanjim/prettier.nvim')
     use {
-    'Vonr/align.nvim',
-    branch = "v2",
+        'Vonr/align.nvim',
+        branch = "v2",
     }
 end)
