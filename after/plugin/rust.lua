@@ -30,9 +30,37 @@ lspconfig.rust_analyzer.setup({
     root_dir = util.root_pattern("Cargo.toml"),
     settings = {
         ['rust-analyzer'] = {
-            cargo = {
-                allFeatures = true,
+        imports = {
+            granularity = {
+               group = "module",
+            },
+            prefix = "self",
+        },
+        cargo = {
+            allFeatures = true,
+            buildScripts = {
+                enable = true,
+                },
+        },
+        procMacro = {
+            enable = true
+        },
+        add_return_type = {
+            enable = true
+        },
+        inlayHints = {
+            enable = true,
+            showParameterNames = true,
+            parameterHintsPrefix = "<- ",
+            otherHintsPrefix = "=> ",
             }
+        },
+        diagnostics = {
+            enable = true;
         }
     }
+})
+
+vim.diagnostic.config({
+    virtual_text = true
 })
