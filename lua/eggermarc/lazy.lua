@@ -22,9 +22,7 @@ vim.g.maplocalleader = "\\"
 
 
 local plugins = {
-    'wbthomason/packer.nvim',
     'neovim/nvim-lspconfig',
-    'simrat39/rust-tools.nvim',
     {
         'nvim-telescope/telescope.nvim',
         version = '0.1.6',
@@ -102,6 +100,13 @@ local plugins = {
         'Vonr/align.nvim',
         branch = "v2",
     },
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    'simrat39/rust-tools.nvim',
+    {
+        "rmagatti/goto-preview",
+        event = "BufEnter",
+        config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    }
 }
 
 

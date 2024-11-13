@@ -1,7 +1,7 @@
 local lsp_zero = require("lsp-zero")
 local lspconfig = require("lspconfig")
 local capabilities = lsp_zero.capabilities
-local util = require "lspconfig/util"
+local util = require "lspconfig.util"
 
 -- Python require pyright
 lspconfig.pyright.setup({
