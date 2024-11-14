@@ -1,5 +1,4 @@
 local NS = { noremap = true, silent = true }
-
 -- Aligns to 1 character
 vim.keymap.set(
     'x',

@@ -30,12 +30,20 @@ local plugins = {
 
     },
     { "catppuccin/nvim",   name = "catppuccin" },
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+    },
     "nvim-treesitter/playground",
     "theprimeagen/harpoon",
     "mbbill/undotree",
     "tpope/vim-fugitive",
+
+    {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    },
     {
         "folke/trouble.nvim",
         config = function()
@@ -46,6 +54,7 @@ local plugins = {
             }
         end
     },
+    -- Just to override and set ensure_installed
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
@@ -83,6 +92,9 @@ local plugins = {
             { 'hrsh7th/cmp-vsnip' },
             { 'hrsh7th/vim-vsnip' },
 
+            --treesitter
+            { 'nvim-treesitter/nvim-treesitter'}
+
         },
     },
     { 'neoclide/coc.nvim', branch = 'release' },
@@ -106,7 +118,14 @@ local plugins = {
         "rmagatti/goto-preview",
         event = "BufEnter",
         config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
-    }
+    },
+    {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+}
 }
 
 
@@ -121,4 +140,25 @@ require("lazy").setup(plugins, {
     install = { colorscheme = { "catppuccin" }, },
     -- automatically check for plugin updates
     checker = { enabled = true },
+    {
+        ui = {
+            -- If you are using a Nerd Font: set icons to an empty table which will use the
+            -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+            icons = vim.g.have_nerd_font and {} or {
+                cmd = '⌘',
+                config = '🛠',
+                event = '📅',
+                ft = '📂',
+                init = '⚙',
+                keys = '🗝',
+                plugin = '🔌',
+                runtime = '💻',
+                require = '🌙',
+                source = '📄',
+                start = '🚀',
+                task = '📌',
+                lazy = '💤 ',
+            },
+        },
+    }
 })
