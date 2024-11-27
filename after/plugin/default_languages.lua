@@ -26,10 +26,17 @@ lspconfig.gopls.setup({
 lspconfig.lua_ls.setup({
     filetypes = { "lua" },
     root_dir = util.root_pattern({ "init.lua" }),
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            diagnostic = {
+                globals = { "vim" }
+            }
+        }
+    }
 })
 
--- TailwindCSS require tailwindcss 
+-- TailwindCSS require tailwindcss
 lspconfig.tailwindcss.setup({}) -- #TODO
 
 -- Julia require julials
@@ -45,3 +52,5 @@ lspconfig.r_language_server.setup({
 
 -- JSON require jsonls / json-lsp
 lspconfig.jsonls.setup({})
+
+lspconfig.csharp_ls.setup({})

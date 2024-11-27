@@ -5,8 +5,8 @@ require("mason").setup({
             package_pending = "⏱️",
             package_uninstalled = "🛒"
         }
+    },
+    {
+        PATH = "append"
     }
 })
-
-require("mason-lspconfig").setup()
-

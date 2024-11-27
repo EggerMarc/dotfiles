@@ -6,10 +6,7 @@ local on_attach = lsp_zero.on_attach(
     function(_, bufnr)
         lsp_zero.default_keymaps({ buffer = bufnr })
     end)
-lspconfig.denols.setup({})
-lspconfig.ts_ls.setup({})
 
---[[
 -- Configure Deno's LSP (denols)
 lspconfig.denols.setup {
     on_attach = function(client, bufnr)
@@ -49,4 +46,3 @@ lspconfig.ts_ls.setup {
     root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
     -- Add any additional tsserver-specific settings here
 }
---]]
