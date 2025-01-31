@@ -14,3 +14,7 @@ require('nvim-highlight-colors').setup({
     virtual_symbol_position='eow',
     enable_tailwind = true
 })
+
+local lspconfig = require('lspconfig');
+
+lspconfig.cssls.setup({})
