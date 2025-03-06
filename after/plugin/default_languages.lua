@@ -7,12 +7,12 @@ local util = require "lspconfig.util"
 lspconfig.pyright.setup({
     capabilities = capabilities,
     filetypes = { "python", "py" },
-    root_dir = util.root_pattern({ "poetry.toml", "requirements.txt" }),
+    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
 })
 
 lspconfig.pylsp.setup({
     filetypes = { "python", "py" },
-    root_dir = util.root_pattern({ "poetry.toml", "requirements.txt" })
+    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" })
 })
 
 -- Go require gopls
