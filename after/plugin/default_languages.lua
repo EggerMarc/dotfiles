@@ -4,15 +4,25 @@ local capabilities = lsp_zero.capabilities
 local util = require "lspconfig.util"
 
 -- Python require pyright
-lspconfig.pyright.setup({
-    capabilities = capabilities,
-    filetypes = { "python", "py" },
-    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
-})
+--lspconfig.pyright.setup({
+--    capabilities = capabilities,
+--    filetypes = { "python", "py" },
+--    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
+--})
+--vim.lsp.config('ruff', {
+-- init_options = {
+--      settings = {
+-- Ruff language server settings go here
+--      }
+--   }
+--})
 
-lspconfig.pylsp.setup({
-    filetypes = { "python", "py" },
-    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" })
+--vim.lsp.enable('ruff')
+lspconfig.ruff.setup({
+    capabilities = capabilities,
+    filetypes = { "py", "python" },
+    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
+
 })
 
 -- Go require gopls
