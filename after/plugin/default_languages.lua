@@ -3,33 +3,64 @@ local lspconfig = require("lspconfig")
 local capabilities = lsp_zero.capabilities
 local util = require "lspconfig.util"
 
--- Python require pyright
---lspconfig.pyright.setup({
---    capabilities = capabilities,
---    filetypes = { "python", "py" },
---    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
---})
---vim.lsp.config('ruff', {
--- init_options = {
---      settings = {
--- Ruff language server settings go here
---      }
---   }
---})
+-- Python: pyright for type checking/hints, ruff for linting/formatting
+-- Detect uv venv automatically
+local function get_python_path(workspace)
+    -- Check for uv venv
+    local uv_venv = workspace .. "/.venv/bin/python"
+    if vim.fn.executable(uv_venv) == 1 then
+        return uv_venv
+    end
+    -- Check VIRTUAL_ENV env var
+    local venv = os.getenv("VIRTUAL_ENV")
+    if venv then
+        return venv .. "/bin/python"
+    end
+    return vim.fn.exepath("python3") or "python"
+end
 
---vim.lsp.enable('ruff')
+lspconfig.pyright.setup({
+    capabilities = capabilities,
+    filetypes = { "python" },
+    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt", "setup.py" }),
+    before_init = function(_, config)
+        config.settings.python.pythonPath = get_python_path(config.root_dir)
+    end,
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+            },
+        },
+    },
+})
+
 lspconfig.ruff.setup({
     capabilities = capabilities,
-    filetypes = { "py", "python" },
+    filetypes = { "python" },
     root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
-
 })
 
 -- Go require gopls
 lspconfig.gopls.setup({
     filetypes = { "go", "golang" },
     root_dir = util.root_pattern({ "go.mod", "go.sum" }),
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+        gopls = {
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
+        },
+    },
 })
 
 -- CSS require css-lsp

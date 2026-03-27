@@ -25,7 +25,7 @@ lsp.set_preferences({
 
 })
 
-lsp.on_attach(function(_, bufnr)
+lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -38,6 +38,11 @@ lsp.on_attach(function(_, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-H>", function() vim.lsp.buf.signature_help() end, opts)
+
+    -- Enable inlay hints if the server supports them
+    if client and client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
 end)
 
 lsp.setup()
