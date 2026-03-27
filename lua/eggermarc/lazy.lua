@@ -34,7 +34,6 @@ local plugins = {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         opts = {
-
             ensure_installed = {
                 "javascript", "typescript", "tsx",
                 "rust",
@@ -125,7 +124,7 @@ local plugins = {
     "eandrju/cellular-automaton.nvim",
     "laytan/cloak.nvim",
     "brenoprata10/nvim-highlight-colors",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     "MunifTanjim/prettier.nvim",
     {
         'Vonr/align.nvim',
@@ -150,6 +149,25 @@ local plugins = {
         'mrcjkb/rustaceanvim',
         version = '^6', -- Recommended
         lazy = false,   -- This plugin is already lazy
+        opts = {
+            server = {
+                default_settings = {
+                    ['rust-analyzer'] = {
+                        cargo = {
+                            allFeatures = true, -- Use the boolean flag for "all"
+                            loadOutDirsFromCheck = true,
+                            runBuildScripts = true,
+                        },
+                        procMacro = {
+                            enable = true,
+                        },
+                    },
+                },
+            },
+        },
+        config = function(_, opts)
+            vim.g.rustaceanvim = opts
+        end,
     },
     'mfussenegger/nvim-dap',
     {
