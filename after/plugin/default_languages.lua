@@ -24,7 +24,14 @@ lspconfig.pyright.setup({
     filetypes = { "python" },
     root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt", "setup.py" }),
     before_init = function(_, config)
-        config.settings.python.pythonPath = get_python_path(config.root_dir)
+        local root = config.root_dir
+        config.settings.python.pythonPath = get_python_path(root)
+        -- Tell pyright where the venv is so it resolves installed packages
+        local venv_path = root .. "/.venv"
+        if vim.fn.isdirectory(venv_path) == 1 then
+            config.settings.python.venvPath = root
+            config.settings.python.venv = ".venv"
+        end
     end,
     settings = {
         python = {
