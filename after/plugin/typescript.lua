@@ -2,13 +2,12 @@ local lsp_zero = require('lsp-zero')
 local lspconfig = require("lspconfig")
 local util = require('lspconfig/util')
 
-local on_attach = lsp_zero.on_attach(
-    function(client, bufnr)
-        lsp_zero.default_keymaps({ buffer = bufnr })
-        if client and client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-        end
-    end)
+local function on_attach(client, bufnr)
+    lsp_zero.default_keymaps({ buffer = bufnr })
+    if client and client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+end
 
 -- Configure Deno's LSP (denols)
 lspconfig.denols.setup {

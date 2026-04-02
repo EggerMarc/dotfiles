@@ -22,6 +22,9 @@ lsp.on_attach(function(client, bufnr)
     -- Enable inlay hints if the server supports them
     if client and client.server_capabilities.inlayHintProvider then
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        vim.keymap.set("n", "<leader>h", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+        end, { buffer = bufnr, desc = "Toggle inlay hints" })
     end
 end)
 

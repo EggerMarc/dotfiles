@@ -15,6 +15,7 @@ require('nvim-highlight-colors').setup({
     enable_tailwind = true
 })
 
-local lspconfig = require('lspconfig');
-
-lspconfig.cssls.setup({})
+local ok, lspconfig = pcall(require, 'lspconfig')
+if ok and lspconfig.cssls then
+    lspconfig.cssls.setup({})
+end
