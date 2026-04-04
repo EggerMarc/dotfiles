@@ -1,6 +1,4 @@
-local lspconfig = require('lspconfig');
-lspconfig.sourcekit.setup({
-    -- capabilities = capabilities,
+vim.lsp.config('sourcekit', {
     capabilities = {
         workspace = {
             didChangeWatchedFiles = {
@@ -9,3 +7,5 @@ lspconfig.sourcekit.setup({
         },
     },
 })
+
+vim.lsp.enable('sourcekit')

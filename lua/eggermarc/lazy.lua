@@ -22,7 +22,6 @@ vim.g.maplocalleader = "\\"
 
 
 local plugins = {
-    'neovim/nvim-lspconfig',
     {
         'nvim-telescope/telescope.nvim',
         version = '0.1.6',
@@ -62,11 +61,8 @@ local plugins = {
     "mbbill/undotree",
     "tpope/vim-fugitive",
 
-    {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
-    },
+    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
     {
         "folke/trouble.nvim",
         config = function()
@@ -77,44 +73,20 @@ local plugins = {
             }
         end
     },
-    -- Just to override and set ensure_installed
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
-        dependencies = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            {
-                'williamboman/mason.nvim',
-                opts = {
-                    ensure_installed = {
-                        "gopls",
-                        "denols", -- configure to support Deno
-                        "typescript-language-server",
-                        "eslint_lsp",
-                        "prettier"
-                    },
-                },
-            },
-            { 'williamboman/mason-lspconfig.nvim' },
+    -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'saadparwaiz1/cmp_luasnip',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
 
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
-            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-
-
-            -- Snippets
-            { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
-            { 'hrsh7th/cmp-vsnip' },
-            { 'hrsh7th/vim-vsnip' },
-        },
-    },
+    -- Snippets
+    'L3MON4D3/LuaSnip',
+    'rafamadriz/friendly-snippets',
+    'hrsh7th/cmp-vsnip',
+    'hrsh7th/vim-vsnip',
     { 'neoclide/coc.nvim', branch = 'release' },
 
     "theprimeagen/refactoring.nvim",
@@ -124,8 +96,29 @@ local plugins = {
     "eandrju/cellular-automaton.nvim",
     "laytan/cloak.nvim",
     "brenoprata10/nvim-highlight-colors",
-    "nvimtools/none-ls.nvim",
-    "MunifTanjim/prettier.nvim",
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                javascript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescript = { "prettier" },
+                typescriptreact = { "prettier" },
+                css = { "prettier" },
+                html = { "prettier" },
+                json = { "prettier" },
+                yaml = { "prettier" },
+                markdown = { "prettier" },
+                graphql = { "prettier" },
+                less = { "prettier" },
+                scss = { "prettier" },
+            },
+            format_on_save = {
+                timeout_ms = 2000,
+                lsp_fallback = true,
+            },
+        },
+    },
     {
         'Vonr/align.nvim',
         branch = "v2",

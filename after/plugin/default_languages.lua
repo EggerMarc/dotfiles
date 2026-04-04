@@ -1,17 +1,10 @@
-local lsp_zero = require("lsp-zero")
-local lspconfig = require("lspconfig")
-local capabilities = lsp_zero.capabilities
-local util = require "lspconfig.util"
-
 -- Python: pyright for type checking/hints, ruff for linting/formatting
 -- Detect uv venv automatically
 local function get_python_path(workspace)
-    -- Check for uv venv
     local uv_venv = workspace .. "/.venv/bin/python"
     if vim.fn.executable(uv_venv) == 1 then
         return uv_venv
     end
-    -- Check VIRTUAL_ENV env var
     local venv = os.getenv("VIRTUAL_ENV")
     if venv then
         return venv .. "/bin/python"
@@ -19,18 +12,19 @@ local function get_python_path(workspace)
     return vim.fn.exepath("python3") or "python"
 end
 
-lspconfig.pyright.setup({
-    capabilities = capabilities,
+vim.lsp.config('pyright', {
     filetypes = { "python" },
-    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt", "setup.py" }),
-    before_init = function(_, config)
-        local root = config.root_dir
-        config.settings.python.pythonPath = get_python_path(root)
-        -- Tell pyright where the venv is so it resolves installed packages
-        local venv_path = root .. "/.venv"
-        if vim.fn.isdirectory(venv_path) == 1 then
-            config.settings.python.venvPath = root
-            config.settings.python.venv = ".venv"
+    root_markers = { "pyproject.toml", "requirements.txt", "setup.py" },
+    on_init = function(client)
+        local root = client.config.root_dir
+        if root then
+            client.config.settings.python = client.config.settings.python or {}
+            client.config.settings.python.pythonPath = get_python_path(root)
+            local venv_path = root .. "/.venv"
+            if vim.fn.isdirectory(venv_path) == 1 then
+                client.config.settings.python.venvPath = root
+                client.config.settings.python.venv = ".venv"
+            end
         end
     end,
     settings = {
@@ -44,17 +38,14 @@ lspconfig.pyright.setup({
     },
 })
 
-lspconfig.ruff.setup({
-    capabilities = capabilities,
+vim.lsp.config('ruff', {
     filetypes = { "python" },
-    root_dir = util.root_pattern({ "pyproject.toml", "requirements.txt" }),
+    root_markers = { "pyproject.toml", "requirements.txt" },
 })
 
--- Go require gopls
-lspconfig.gopls.setup({
+vim.lsp.config('gopls', {
     filetypes = { "go", "golang" },
-    root_dir = util.root_pattern({ "go.mod", "go.sum" }),
-    capabilities = capabilities,
+    root_markers = { "go.mod", "go.sum" },
     settings = {
         gopls = {
             hints = {
@@ -70,40 +61,36 @@ lspconfig.gopls.setup({
     },
 })
 
--- CSS require css-lsp
--- lspconfig.css_lsp.setup({
---     filetypes = "css",
--- })
-
--- Lua require lua_ls
-lspconfig.lua_ls.setup({
+vim.lsp.config('lua_ls', {
     filetypes = { "lua" },
-    root_dir = util.root_pattern({ "init.lua" }),
-    capabilities = capabilities,
+    root_markers = { "init.lua", ".luarc.json" },
     settings = {
         Lua = {
-            diagnostic = {
+            diagnostics = {
                 globals = { "vim" }
             }
         }
     }
 })
 
--- TailwindCSS require tailwindcss
-lspconfig.tailwindcss.setup({}) -- #TODO
+vim.lsp.config('tailwindcss', {})
 
--- Julia require julials
-lspconfig.julials.setup({
+vim.lsp.config('julials', {
     filetypes = { "julia", "jl" },
-    root_dir = util.root_pattern({ "Project.toml" })
+    root_markers = { "Project.toml" },
 })
 
--- R require require r_languageserver
-lspconfig.r_language_server.setup({
-    filetypes = { "r" }
+vim.lsp.config('r_language_server', {
+    filetypes = { "r" },
 })
 
--- JSON require jsonls / json-lsp
-lspconfig.jsonls.setup({})
+vim.lsp.config('jsonls', {})
 
-lspconfig.csharp_ls.setup({})
+vim.lsp.config('csharp_ls', {})
+
+vim.lsp.config('cssls', {})
+
+vim.lsp.enable({
+    'pyright', 'ruff', 'gopls', 'lua_ls', 'tailwindcss',
+    'julials', 'r_language_server', 'jsonls', 'csharp_ls', 'cssls',
+})
