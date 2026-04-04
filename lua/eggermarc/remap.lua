@@ -45,6 +45,10 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/egg
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 
+vim.keymap.set("n", "<leader>D", function()
+    if Snacks.dim.enabled then Snacks.dim.disable() else Snacks.dim.enable() end
+end, { desc = "Toggle dim" })
+
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
