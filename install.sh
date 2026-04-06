@@ -34,6 +34,7 @@ for dir in "$DOTFILES/common"/*/; do
   case "$name" in
     bash)     link_config "$dir/.bashrc" "$HOME/.bashrc" ;;
     starship) link_config "$dir/starship.toml" "$HOME/.config/starship.toml" ;;
+    tmux)     link_config "$dir/tmux.conf" "$HOME/.tmux.conf" ;;
     *)        link_config "$dir" "$HOME/.config/$name" ;;
   esac
 done

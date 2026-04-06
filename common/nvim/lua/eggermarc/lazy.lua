@@ -87,8 +87,6 @@ local plugins = {
     'rafamadriz/friendly-snippets',
     'hrsh7th/cmp-vsnip',
     'hrsh7th/vim-vsnip',
-    { 'neoclide/coc.nvim', branch = 'release' },
-
     "theprimeagen/refactoring.nvim",
     "theprimeagen/vim-be-good",
     "folke/zen-mode.nvim",
@@ -124,7 +122,6 @@ local plugins = {
         branch = "v2",
     },
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    'simrat39/rust-tools.nvim',
     {
         "rmagatti/goto-preview",
         event = "BufEnter",
@@ -141,6 +138,21 @@ local plugins = {
         'windwp/nvim-ts-autotag',
         event = "InsertEnter",
         config = true,
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        opts = {},
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {},
     },
     'nvim-tree/nvim-web-devicons',
     {
@@ -177,9 +189,13 @@ local plugins = {
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
             bigfile = { enabled = true },
-            indent = { enabled = true },
             dim = { enabled = true },
+            git = { enabled = true },
+            gitbrowse = { enabled = true },
+            image = { enabled = true },
+            indent = { enabled = true },
             notifier = { enabled = true },
+            profiler = { enabled = true },
             quickfile = { enabled = true },
             statuscolumn = { enabled = true },
             words = { enabled = true },
@@ -234,28 +250,34 @@ local plugins = {
 
 -- Setup lazy.nvim
 require("lazy").setup(plugins, {
+    spec = {
+        -- import your plugins
+        { import = "plugins" },
+    },
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
     install = { colorscheme = { "catppuccin" }, },
     -- automatically check for plugin updates
     checker = { enabled = true },
-    ui = {
-        -- If you are using a Nerd Font: set icons to an empty table which will use the
-        -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-        icons = vim.g.have_nerd_font and {} or {
-            cmd = '⌘',
-            config = '🛠',
-            event = '📅',
-            ft = '📂',
-            init = '⚙',
-            keys = '🗝',
-            plugin = '🔌',
-            runtime = '💻',
-            require = '🌙',
-            source = '📄',
-            start = '🚀',
-            task = '📌',
-            lazy = '💤 ',
+    {
+        ui = {
+            -- If you are using a Nerd Font: set icons to an empty table which will use the
+            -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+            icons = vim.g.have_nerd_font and {} or {
+                cmd = '⌘',
+                config = '🛠',
+                event = '📅',
+                ft = '📂',
+                init = '⚙',
+                keys = '🗝',
+                plugin = '🔌',
+                runtime = '💻',
+                require = '🌙',
+                source = '📄',
+                start = '🚀',
+                task = '📌',
+                lazy = '💤 ',
+            },
         },
-    },
+    }
 })
