@@ -3,7 +3,6 @@ set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
-# Detect OS
 case "$(uname -s)" in
   Linux*)  PLATFORM="linux" ;;
   Darwin*) PLATFORM="mac" ;;
@@ -13,38 +12,41 @@ esac
 echo "Platform: $PLATFORM"
 echo "Dotfiles: $DOTFILES"
 
-# Ensure stow is installed
-if ! command -v stow &>/dev/null; then
-  echo "Installing stow..."
-  if [ "$PLATFORM" = "linux" ]; then
-    sudo pacman -S --needed --noconfirm stow
-  else
-    brew install stow
-  fi
-fi
+link_config() {
+  local src="$1"
+  local dest="$2"
 
-# Stow common configs
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    echo "  backing up $dest -> ${dest}.bak"
+    mv "$dest" "${dest}.bak"
+  fi
+
+  mkdir -p "$(dirname "$dest")"
+  ln -sfn "$src" "$dest"
+  echo "  $dest -> $src"
+}
+
+# Common configs
 echo ""
-echo ">>> Stowing common configs..."
+echo ">>> Linking common configs..."
 for dir in "$DOTFILES/common"/*/; do
   name=$(basename "$dir")
-  echo "  $name"
-  stow -d "$DOTFILES/common" -t "$HOME" --adopt "$name"
+  case "$name" in
+    bash)     link_config "$dir/.bashrc" "$HOME/.bashrc" ;;
+    starship) link_config "$dir/starship.toml" "$HOME/.config/starship.toml" ;;
+    *)        link_config "$dir" "$HOME/.config/$name" ;;
+  esac
 done
 
-# Stow platform-specific configs
+# Platform-specific configs
 if [ -d "$DOTFILES/$PLATFORM" ]; then
   echo ""
-  echo ">>> Stowing $PLATFORM configs..."
+  echo ">>> Linking $PLATFORM configs..."
   for dir in "$DOTFILES/$PLATFORM"/*/; do
     name=$(basename "$dir")
-    echo "  $name"
-    stow -d "$DOTFILES/$PLATFORM" -t "$HOME" --adopt "$name"
+    link_config "$dir" "$HOME/.config/$name"
   done
 fi
 
 echo ""
 echo "Done! All configs symlinked."
-echo ""
-echo "Note: --adopt was used, so any existing files were moved into"
-echo "the dotfiles repo. Run 'git diff' to review and commit."

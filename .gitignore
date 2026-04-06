@@ -1,10 +1,10 @@
 # Neovim
-common/nvim/.config/nvim/lazy-lock.json
-common/nvim/.config/nvim/.claude/
+common/nvim/lazy-lock.json
+common/nvim/.claude/
 
 # Fastfetch images
-linux/fastfetch/.config/fastfetch/*.jpg
-linux/fastfetch/.config/fastfetch/*.png
+linux/fastfetch/*.jpg
+linux/fastfetch/*.png
 
 # OS
 .DS_Store
