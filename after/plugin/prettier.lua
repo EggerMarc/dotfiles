@@ -1,2 +1,0 @@
--- Formatting is now handled by conform.nvim (configured in lazy.lua)
--- prettier CLI reads .prettierrc automatically
