@@ -12,6 +12,7 @@
     "network",
     "pulseaudio",
     "cpu",
+    "memory",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -55,10 +56,16 @@
   },
 
   "cpu": {
-    "interval": 5,
-    "format": "󰍛",
+    "interval": 3,
+    "format": "󰍛 {usage}%",
     "on-click": "omarchy-launch-or-focus-tui btop",
-    "on-click-right": "alacritty"
+    "tooltip-format": "CPU: {usage}%\n{avg_frequency} GHz"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰘚 {percentage}%",
+    "tooltip-format": "RAM: {used:0.1f} GiB / {total:0.1f} GiB",
+    "on-click": "omarchy-launch-or-focus-tui btop"
   },
   "clock": {
     "format": "{:L%A %H:%M}",
