@@ -149,11 +149,6 @@ local plugins = {
         event = "VeryLazy",
         opts = {},
     },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
     'nvim-tree/nvim-web-devicons',
     {
         'mrcjkb/rustaceanvim',
