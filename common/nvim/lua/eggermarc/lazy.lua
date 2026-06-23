@@ -40,7 +40,9 @@ local plugins = {
                 "c", "cpp",
                 "lua", "vim", "vimdoc",
                 "query", "toml", "json",
-                "go"
+                "go",
+                -- GPU / shader languages
+                "wgsl", "cuda", "glsl", "hlsl",
             },
             auto_install = true,
             highlight = {
